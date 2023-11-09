@@ -10,13 +10,51 @@
     <div class="card">
         {% if email %}
             <img src="{{ picture_url }}" alt="Profile Picture">
-            <p>Hello, {{ name }}! <a href="/logout">[Sign out]</a></p>
+            <p>Hello {{ name }} <a href="/logout">[Sign out]</a></p>
             <p>You are signed in with the email {{email}} </p>
             <p>Current Indian Time: {{ current_time }}</p>
+            <!-- New input box for the number of lines -->
+            <label for="numLines">Number of Lines:</label>
+            <input type="number" id="numLines" name="numLines" max="100">
+
+            <!-- New button to display the diamond pattern -->
+            <button onclick="displayDiamond()">Display</button>
+
+            <!-- Container to display the diamond pattern -->
+            <div id="diamondPattern"></div>
         {% else %}
             <h1>Welcome to Flask Google Sign-in</h1>
             <a href="/login">Login with Google</a>
         {% endif %}
     </div>
+    <script>
+        function displayDiamond() {
+        // Get the value from the input box
+        var numLines = document.getElementById("numLines").value;
+
+        // Validate the input
+        if (numLines < 1 || numLines > 100 || isNaN(numLines)) {
+            alert("Please enter a valid number between 1 and 100.");
+            return;
+        }
+
+        // Clear the previous content
+        document.getElementById("diamondPattern").innerHTML = "";
+
+        // Generate the diamond pattern
+        for (var i = 1; i <= numLines; i++) {
+            var spaces = "&nbsp;".repeat(numLines - i);
+            var stars = "*".repeat(2 * i - 1);
+            document.getElementById("diamondPattern").innerHTML += "<p>" + spaces + stars + "</p>";
+        }
+
+        for (var i = numLines - 1; i >= 1; i--) {
+            var spaces = "&nbsp;".repeat(numLines - i);
+            var stars = "*".repeat(2 * i - 1);
+            document.getElementById("diamondPattern").innerHTML += "<p>" + spaces + stars + "</p>";
+        }
+    }
+
+    </script>
 </body>
 </html>

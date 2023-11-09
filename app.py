@@ -5,6 +5,7 @@ import requests
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
+
 app.config["GOOGLE_ID"] = "YOUR_GOOGLE_CLIENT_ID"
 app.config["GOOGLE_SECRET"] = "YOUR_GOOGLE_CLIENT_SECRET"
 
