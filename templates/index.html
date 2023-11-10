@@ -31,6 +31,9 @@
         function displayDiamond() {
         // Get the value from the input box
         var numLines = document.getElementById("numLines").value;
+        
+        // Clear the previous content
+        document.getElementById("diamondPattern").innerHTML = "";
 
         // Validate the input
         if (numLines < 1 || numLines > 100 || isNaN(numLines)) {
@@ -38,20 +41,39 @@
             return;
         }
 
-        // Clear the previous content
-        document.getElementById("diamondPattern").innerHTML = "";
+        const inputString = 'FORMULAQSOLUTIONS';
 
-        // Generate the diamond pattern
-        for (var i = 1; i <= numLines; i++) {
-            var spaces = "&nbsp;".repeat(numLines - i);
-            var stars = "*".repeat(2 * i - 1);
-            document.getElementById("diamondPattern").innerHTML += "<p>" + spaces + stars + "</p>";
+        if (parseInt(numLines) === 1){
+            document.getElementById("diamondPattern").innerHTML += "<p>F</p>";
         }
 
-        for (var i = numLines - 1; i >= 1; i--) {
-            var spaces = "&nbsp;".repeat(numLines - i);
-            var stars = "*".repeat(2 * i - 1);
-            document.getElementById("diamondPattern").innerHTML += "<p>" + spaces + stars + "</p>";
+        let maxLength = -1;
+
+        if (numLines % 2 === 0) {
+            maxLength = parseInt(numLines) + 1;
+        } else {
+            maxLength = numLines;
+        }
+
+        let spaces = Math.floor(maxLength / 2);
+        let inputRepeated = inputString.repeat(spaces);
+        let charTracker = 0;
+
+        for (let i = 1; i < maxLength; i += 2) {
+            charTracker %= 17;
+            const toPrint = "&nbsp;".repeat(spaces*2 + 1) + inputRepeated.substring(charTracker, charTracker + i);
+            document.getElementById("diamondPattern").innerHTML += "<p>" + toPrint+ "</p>";
+            spaces--;
+            charTracker++;
+        }
+
+        for (let i = maxLength; i > 0; i -= 2) {
+            charTracker %= 17;
+            i = parseInt(i)
+            const toPrint = "&nbsp;".repeat(spaces*2 + 1) + inputRepeated.substring(charTracker, charTracker + i);
+            document.getElementById("diamondPattern").innerHTML += "<p>" + toPrint+ "</p>";
+            spaces++;
+            charTracker++;
         }
     }
 
